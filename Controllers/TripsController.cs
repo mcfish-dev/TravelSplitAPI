@@ -82,5 +82,43 @@ namespace RESTful_API.Controllers
                 new { id = trip.Id },
                 trip);
         }
+
+        // 修改旅程
+        [HttpPut("{id:int}")]
+        public IActionResult UpdateTrip(int id, [FromBody] Trip updatedTrip)
+        {
+            var trip = Trips.FirstOrDefault(t => t.Id == id);
+
+            if (trip == null)
+            {
+                return NotFound(new
+                {
+                    message = $"找不到編號為 {id} 的旅程"
+                });
+            }
+
+            if (string.IsNullOrWhiteSpace(updatedTrip.Name))
+            {
+                return BadRequest(new
+                {
+                    message = "旅程名稱不能空白"
+                });
+            }
+
+            if (updatedTrip.EndDate < updatedTrip.StartDate)
+            {
+                return BadRequest(new
+                {
+                    message = "結束日期不能早於開始日期"
+                });
+            }
+
+            trip.Name = updatedTrip.Name;
+            trip.Destination = updatedTrip.Destination;
+            trip.StartDate = updatedTrip.StartDate;
+            trip.EndDate = updatedTrip.EndDate;
+
+            return NoContent();
+        }
     }
 }
