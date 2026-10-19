@@ -1,0 +1,25 @@
+# Visual Studio local settings and caches
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET build output
+[Bb]in/
+[Oo]bj/
+[Aa]rtifacts/
+
+# Test output and coverage
+[Tt]est[Rr]esults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Local publish settings
+*.pubxml.user
+
+# Logs and operating system files
+*.log
+.DS_Store
+Thumbs.db
