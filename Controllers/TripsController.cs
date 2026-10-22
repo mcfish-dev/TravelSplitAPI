@@ -120,5 +120,22 @@ namespace RESTful_API.Controllers
 
             return NoContent();
         }
+
+        // 刪除旅程
+        [HttpDelete("{id:int}")]
+        public IActionResult DeleteTrip(int id)
+        {
+            var trip = Trips.FirstOrDefault(t => t.Id == id);
+            if (trip == null)
+            {
+                return NotFound(new
+                {
+                    message = $"找不到編號為 {id} 的旅程"
+                });
+            }
+            Trips.Remove(trip);
+            return NoContent();
+        }
     }
+        
 }
