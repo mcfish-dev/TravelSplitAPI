@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TravelSplitAPI.Models;
+using TravelSplitAPI.Data;
 
-namespace RESTful_API.Controllers
+namespace TravelSplitAPI.Controllers
 {
     [ApiController]
     [Route("api/trips/{tripId:int}/participants")]
@@ -34,6 +35,14 @@ namespace RESTful_API.Controllers
         [HttpGet]
         public ActionResult<List<Participant>> GetParticipants(int tripId)
         {
+            if (!TripStore.Trips.Any(t => t.Id == tripId))
+            {
+                return NotFound(new
+                {
+                    message = $"找不到編號為 {tripId} 的旅程"
+                });
+            }
+
             var participants = Participants
                 .Where(p => p.TripId == tripId)
                 .ToList();
@@ -47,6 +56,13 @@ namespace RESTful_API.Controllers
             int tripId,
             [FromBody] Participant participant)
         {
+            if (!TripStore.Trips.Any(t => t.Id == tripId))
+            {
+                return NotFound(new
+                {
+                    message = $"找不到編號為 {tripId} 的旅程"
+                });
+            }
             if (string.IsNullOrWhiteSpace(participant.Name))
             {
                 return BadRequest(new
