@@ -1,4 +1,4 @@
-﻿namespace RESTful_API.Models
+﻿namespace TravelSplitAPI.Models
 {
     public class Trip
     {

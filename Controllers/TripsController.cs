@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RESTful_API.Models;
+using TravelSplitAPI.Models;
 
 namespace RESTful_API.Controllers
 {
