@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using TravelSplitAPI.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var databasePath = Path.Combine(
+    builder.Environment.ContentRootPath,
+    "travelsplit.db");
+
+builder.Services.AddDbContext<TripSqlite>(options =>
+    options.UseSqlite($"Data Source={databasePath}"));
 
 var app = builder.Build();
 
